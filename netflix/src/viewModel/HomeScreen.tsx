@@ -1,10 +1,13 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
 
 function HomeScreen() {
   return (
-    <div>
-      
-    </div>
+    <>
+      <div className='relative h-screen text-white bg-black'>
+        <Navbar />
+      </div>
+    </>
   )
 }
 

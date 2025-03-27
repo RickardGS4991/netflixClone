@@ -4,7 +4,7 @@ import HomePage from './viewModel/HomePage'
 import SignUpPage from './viewModel/SignUpPage'
 import LoginPage from './viewModel/LoginPage'
 import AuthScreen from './viewModel/AuthScreen'
-import Footer from './components/Footer'
+import Footer from './core/components/Footer'
 import HomeScreen from './viewModel/HomeScreen'
 
 function App() {

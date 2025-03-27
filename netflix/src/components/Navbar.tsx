@@ -1,4 +1,4 @@
-import { Menu, Search } from 'lucide-react';
+import { LogOut, Menu, Search } from 'lucide-react';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -27,11 +27,13 @@ function Navbar() {
         </div>
 
         <div className='flex gap-2 items-center z-50'>
-            <Link to={"/search"}></Link>
-            <Search className='size-6 cursor-pointer' />
+            <Link to={"/search"}>
+                <Search className='size-6 cursor-pointer' />
+            </Link>
             {/* {"La imagen del usuario debe cambiar dependiendo del usuario"} */}
             <img src={"/avatar1.png"} alt="avatar" className='h-8 rounded cursor-pointer'/>
             {/* {"Debo agregar aquí el boton logout"} */}
+            <LogOut className='size-6 cursor-pointer' />
 
             <div className='sm:hidden'>
                 <Menu className='size-6 cursor-pointer' onClick={toggleMobileMenu} />

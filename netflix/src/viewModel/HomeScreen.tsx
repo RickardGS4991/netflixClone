@@ -1,12 +1,18 @@
 import React from 'react'
 import Navbar from '../core/components/Navbar'
 import { Link } from 'react-router-dom'
-import { Info, Play } from 'lucide-react'
+import { Divide, Info, Play } from 'lucide-react'
 import useGetTrendingContent from '../core/hooks/useGetTrendingContent'
 
 function HomeScreen() {
   const {trendingContent} = useGetTrendingContent();
   console.log(trendingContent);
+
+  // if(!trendingContent) return(
+  //   <div> 
+  //     <Navbar />
+  //     <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer'/>
+  //   </div>);
   return (
     <>
       <div className='relative h-screen text-white'>
@@ -31,11 +37,13 @@ function HomeScreen() {
             </p>
 
             <p className='mt-4 text-lg'>
+              {/*{trendingContent.overview?.length > 200 ? trendingContent.overview?.slice(0,200) + "..." : trendingContent?.overview }*/}
 
             </p>
           </div>
 
           <div className='flex mt-8'>
+            {/*to={`/watch/#{trendingContent?.id}`}*/}
             <Link to="/watch/123" className='bg-white hover:bg-white/80 text-black font-bold py-2 px-4 rounded mr-4 flex items-center'>
             <Play className='size-6 mr-2 fill-black' />
               Play

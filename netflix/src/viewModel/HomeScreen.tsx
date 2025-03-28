@@ -3,10 +3,14 @@ import Navbar from '../core/components/Navbar'
 import { Link } from 'react-router-dom'
 import { Divide, Info, Play } from 'lucide-react'
 import useGetTrendingContent from '../core/hooks/useGetTrendingContent'
+import { useContentStore } from '../core/store/content'
+import { MOVIES_CATEGORIES, TV_CATEGORIES } from '../core/utils/constants'
+import MovieSlider from '../core/components/MovieSlider'
 
 function HomeScreen() {
   const {trendingContent} = useGetTrendingContent();
   console.log(trendingContent);
+  const {contentType} = useContentStore()
 
   // if(!trendingContent) return(
   //   <div> 
@@ -55,6 +59,12 @@ function HomeScreen() {
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className='flex flex-col gap-10 bg-black py-10'>
+        {contentType === "movie" ? (MOVIES_CATEGORIES.map((category: any) => <MovieSlider key={category} category={category} />)) : (
+          TV_CATEGORIES.map((category: any) => <MovieSlider key={category} category={category} />)
+        ) }
       </div>
     </>
   )

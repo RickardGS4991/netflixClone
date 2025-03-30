@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../core/components/Navbar'
-import { Link } from 'react-router-dom'
-import { Divide, Info, Play } from 'lucide-react'
+import { Link } from 'react-router-dom';
+import { Info, Play } from 'lucide-react';
 import useGetTrendingContent from '../core/hooks/useGetTrendingContent'
 import { useContentStore } from '../core/store/content'
 import { MOVIES_CATEGORIES, TV_CATEGORIES } from '../core/utils/constants'
@@ -9,19 +9,18 @@ import MovieSlider from '../core/components/MovieSlider'
 
 function HomeScreen() {
   const {trendingContent} = useGetTrendingContent();
-  console.log(trendingContent);
-  const {contentType} = useContentStore()
+  const {contentType} = useContentStore();
 
-  // if(!trendingContent) return(
-  //   <div> 
-  //     <Navbar />
-  //     <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer'/>
-  //   </div>);
+  const [imgLoader, setImgLoader] = useState<boolean>(true);
+
   return (
     <>
       <div className='relative h-screen text-white'>
         <Navbar />
-        <img src="/extraction.jpg"  alt="extraction" className='absolute top-0 left-0 w-full h-full object-cover -z-50' />
+        {imgLoader && (
+          <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center shimmer -z-10'></div>
+        )}
+        <img src="/extraction.jpg"  alt="extraction" className='absolute top-0 left-0 w-full h-full object-cover -z-50' onLoad={() => { setImgLoader(false) }}/>
         {/*{ORIGINAL_IMG_BASE_URL + trendingContent?.backdrop_path} */}
         <div className='absolute top-0 left-0 w-full h-full bg-black/50 -z-50' aria-hidden={true} />
 

@@ -6,6 +6,7 @@ import LoginPage from './viewModel/LoginPage'
 import AuthScreen from './viewModel/AuthScreen'
 import Footer from './core/components/Footer'
 import HomeScreen from './viewModel/HomeScreen'
+import WatchPage from './viewModel/WatchPage'
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
       <Route path='/signup'  element={<SignUpPage />} />
       <Route path='/login' element={<LoginPage />} /> 
       <Route path='/auth' element={<AuthScreen />} />
+      {/* <Route path='/watch:id' element={user ? <WatchPage /> : <Navidate to={"/"} />} /> */}
+      <Route path='/watch' element={<WatchPage />} />
     </Routes>
     <Footer />
     </>

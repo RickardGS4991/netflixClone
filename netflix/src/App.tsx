@@ -12,17 +12,16 @@ function App() {
 
   return (
     <>
-    
-    <Routes>
-      <Route path='/' element={<HomePage />}/>
-      <Route path='/home' element={<HomeScreen />}/>
-      <Route path='/signup'  element={<SignUpPage />} />
-      <Route path='/login' element={<LoginPage />} /> 
-      <Route path='/auth' element={<AuthScreen />} />
-      {/* <Route path='/watch:id' element={user ? <WatchPage /> : <Navidate to={"/"} />} /> */}
-      <Route path='/watch' element={<WatchPage />} />
-    </Routes>
-    <Footer />
+      <Routes>
+        <Route path='/' element={<HomePage />}/>
+        <Route path='/home' element={<HomeScreen />}/>
+        <Route path='/signup'  element={<SignUpPage />} />
+        <Route path='/login' element={<LoginPage />} /> 
+        <Route path='/auth' element={<AuthScreen />} />
+        {/* <Route path='/watch:id' element={user ? <WatchPage /> : <Navidate to={"/"} />} /> */}
+        <Route path='/watch' element={<WatchPage />} />
+      </Routes>
+      <Footer />
     </>
   )
 }

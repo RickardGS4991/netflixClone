@@ -61,26 +61,26 @@ function WatchPage() {
             <Navbar />
 
             {Array.isArray(trailers) && trailers.length > 0 && (
-  <div className='flex justify-between items-center mb-4'>
-    <button
-      className={`bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded ${
-        currentTrailerIdx === 0 ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-      disabled={currentTrailerIdx === 0}
-    >
-      <ChevronLeft size={24} />
-    </button>
+                <div className='flex justify-between items-center mb-4'>
+                    <button
+                        className={`bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded ${
+                            currentTrailerIdx === 0 ? 'cursor-not-allowed bg-opacity-35' : ''
+                            }`}
+                        disabled={currentTrailerIdx === 0}
+                    >
+                        <ChevronLeft size={24} />
+                    </button>
 
-    <button
-      className={`bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded ${
-        currentTrailerIdx === trailers.length - 1 ? 'cursor-not-allowed opacity-50' : ''
-      }`}
-      disabled={currentTrailerIdx === trailers.length - 1}
-    >
-      <ChevronRight size={24} />
-    </button>
-  </div>
-)}
+                    <button
+                        className={`bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded ${
+                            currentTrailerIdx === trailers.length - 1 ? 'cursor-not-allowed opacity-50' : ''
+                            }`}
+                        disabled={currentTrailerIdx === trailers.length - 1}
+                    >
+                        <ChevronRight size={24} />
+                    </button>
+                </div>
+            )}
         </div>
       
     </div>

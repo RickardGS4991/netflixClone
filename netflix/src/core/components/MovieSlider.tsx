@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { MovieSliderProps } from '../../model/movieSlideProps'
 import { useContentStore } from '../store/content';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { SMALL_IMG_BASE_URL } from '../utils/constants';
 import { ContentType } from '../../model/contentInterface';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
+import { categoryService } from '../../services/moviesAndTv/category';
 
 const MovieSlider  = ({category} : MovieSliderProps) => {
     const {contentType} = useContentStore();
@@ -16,15 +15,20 @@ const MovieSlider  = ({category} : MovieSliderProps) => {
     const sliderRef = useRef<HTMLDivElement>(null);
 
     const formattedCategoryName = category.replace("_", " ")[0].toUpperCase() + category.replace("_", " ").slice(1);
-    const formattedContentType = contentType === "movies" ? "Movies" : "TV shows";
+    const formattedContentType = contentType === "movie" ? "Movies" : "TV shows";
 
-    useEffect( () => {
-        const getContent = async ()=> {
-            const res = await axios.get(`/api/v1/${contentType}/${category}`)
-            setContent(res.data.content);
+    useEffect(() => {
+      const getContent = async () => {
+        try {
+
+          let res = await categoryService(category, 'movies');
+          setContent(res);
+        } catch (error: any) {
+          console.error(`Error al cargar ${category}:`, error.message);
         }
-
-        getContent();
+      };
+    
+      getContent();
     }, [contentType, category]);
 
     const scrollsLeft = () => {
@@ -54,7 +58,7 @@ const MovieSlider  = ({category} : MovieSliderProps) => {
                     className='transition-transform duration-300 ease-in-out group-hover:scale-125'/>
 
                 </div>
-                <p className='mt-2 text-center'>{item.title || item.name}</p>
+                <p className='mt-2 text-center'>{item.title}</p>
             </Link>
         ))}
       </div>

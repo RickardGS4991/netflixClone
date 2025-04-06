@@ -1,13 +1,33 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
+import { registerService } from '../services/register';
+import { toast } from 'sonner';
 
 function SignUpPage() {
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(email === null || username === null || password === null){
+      return;
+    }
+
+    let request = {
+      data: {
+        email: email,
+        password: password
+      },
+      username: username
+    }
+
+    try {
+      await registerService(request);
+      toast.success('Usuario registrado')
+    } catch (error) {
+      toast.error('Algo sucedio mal...');
+    }
 
   }
 
@@ -27,21 +47,21 @@ function SignUpPage() {
               <label htmlFor="email" className='text-sm font-medium text-gray-300 block'>
                 Email
               </label>
-              <input type='email' value={email} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='email' onChange={(e:any) => setEmail(e)}/>
+              <input type='email' value={email} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='email' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
             </div>
 
             <div>
               <label htmlFor="username" className='text-sm font-medium text-gray-300 block'>
                 Username
               </label>
-              <input type='text' value={username} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='username' onChange={(e:any) => setUserName(e)}/>
+              <input type='text' value={username} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='username' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}/>
             </div>
 
             <div>
               <label htmlFor="password" className='text-sm font-medium text-gray-300 block'>
                 Password
               </label>
-              <input type='password' value={password} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='password' onChange={(e:any) => setPassword(e)}/>
+              <input type='password' value={password} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='password' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}/>
             </div>
 
             <button className='w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700'>Sign up</button>

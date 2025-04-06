@@ -9,8 +9,6 @@ function Navbar() {
     const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
     const {contentType, setContentType} = useContentStore();
-
-    console.log("contentType: ", contentType);
   return (
     <header className='max-w-6xl mx-auto flex flex-wrap items-center justify-between p-4 h-20'>
         <div className='flex items-center gap-10 z-50'>
@@ -19,7 +17,7 @@ function Navbar() {
             </Link>
 
             <div className='hidden sm:flex gap-2 items-center'>
-                <Link to={"/"} className='hover:underline' onClick={() => setContentType("movie")}>
+                <Link to={"/"} className='hover:underline' onClick={() => setContentType("movies")}>
                     Movies
                 </Link>
                 <Link to={"/"} className='hover:underline' onClick={() => setContentType("tv")}>

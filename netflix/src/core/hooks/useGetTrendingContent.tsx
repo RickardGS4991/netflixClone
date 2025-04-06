@@ -1,18 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useContentStore } from '../store/content';
-import axios from 'axios';
+import { trendingService } from '../../services/moviesAndTv/trending';
+import { TrendingModel } from '../../model/trending.model';
 
 function useGetTrendingContent() {
-  const [trendingContent, setTrendingContent] = useState(null);
-  const {contentType} = useContentStore();
+  const [trendingContent, setTrendingContent] = useState<TrendingModel | null>(null);
+  const { contentType } = useContentStore();
 
   useEffect(() => {
     const getTrendingContent = async () => {
-        const response = await axios.get(`/api/v1/${contentType}/trending`);
-        setTrendingContent(response.data.content)
-    }
+      try {
+        const response: TrendingModel = await trendingService(contentType);
+        
+        if (response) {
+          setTrendingContent(response);
+        }
+      } catch (error) {
+        console.error("Error getting trending content:", error);
+      }
+    };
     getTrendingContent();
   }, [contentType]);
+
   return { trendingContent };
 }
 

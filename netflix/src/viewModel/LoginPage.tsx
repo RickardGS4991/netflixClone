@@ -1,15 +1,34 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LoginService } from '../services/login';
+import { setItems } from '../core/utils/localStorage';
+import { Tokens } from '../model/tokens';
+import { toast } from 'sonner';
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if(!email || !password){
+      return;
+    }
 
+    try {
+      let result = await LoginService({email: email, password: password});
+      if(!result){
+        throw new Error(`Invalid credentials`);
+      }
+      let tokens: Tokens = { access: result.accessToken, refresh: result.refreshToken }
+      setItems(tokens);
+      toast.success(`Bienvenido, ${result.username}`);
+    } catch (error) {
+      toast.error('Algo sucedió mal...');
+    }
   }
+  
   return (
     <div className='h-screen w-full hero-bg'>
       <header className='max-w-6xl mx-auto flex items-center justify-between p-4'>
@@ -26,14 +45,14 @@ function LoginPage() {
               <label htmlFor="email" className='text-sm font-medium text-gray-300 block'>
                 Email
               </label>
-              <input type='email' value={email} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='email' onChange={(e:any) => setEmail(e)}/>
+              <input type='email' name='email' value={email} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='email' onChange={(e:React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
             </div>
 
             <div>
               <label htmlFor="password" className='text-sm font-medium text-gray-300 block'>
                 Password
               </label>
-              <input type='password' value={password} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='password' onChange={(e:any) => setPassword(e)}/>
+              <input type='password' name='password' value={password} className='w-full px-3 py-2 mt-1 border border-gray-700 rounded-md bg-transparent text-white focus:outline-none focus:ring' placeholder='you@example.com' id='password' onChange={(e:any) => setPassword(e.target.value)}/>
             </div>
 
             <button className='w-full py-2 bg-red-600 text-white font-semibold rounded-md hover:bg-red-700'>Sign up</button>

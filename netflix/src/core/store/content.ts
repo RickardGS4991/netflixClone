@@ -1,6 +1,11 @@
 import { create } from "zustand";
 
-export const useContentStore = create((set:any) => ({
-    contentType: "movie",
-    setContentType: (type:any) => set({contentType:type})
-}));
+type ContentState = {
+    contentType: string;
+    setContentType: (type: string) => void;
+  };
+  
+  export const useContentStore = create<ContentState>((set) => ({
+    contentType: "movies",
+    setContentType: (type) => set({ contentType: type }),
+  }));

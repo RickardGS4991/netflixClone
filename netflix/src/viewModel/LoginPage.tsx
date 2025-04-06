@@ -4,10 +4,15 @@ import { LoginService } from '../services/login';
 import { setItems } from '../core/utils/localStorage';
 import { Tokens } from '../model/tokens';
 import { toast } from 'sonner';
+import { setAuth } from '../core/store/authContent';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const {changeAuth} = setAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,12 +23,15 @@ function LoginPage() {
 
     try {
       let result = await LoginService({email: email, password: password});
+      console.log(result);
       if(!result){
         throw new Error(`Invalid credentials`);
       }
       let tokens: Tokens = { access: result.accessToken, refresh: result.refreshToken }
+      changeAuth({ username: result.username, image_path: result.imagePath });
       setItems(tokens);
       toast.success(`Bienvenido, ${result.username}`);
+      navigate('/home');
     } catch (error) {
       toast.error('Algo sucedió mal...');
     }

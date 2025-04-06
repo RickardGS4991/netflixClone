@@ -15,9 +15,10 @@ function HomeScreen() {
 
   if (!trendingContent) {
     return (
-      <div className="text-white flex items-center justify-center h-screen">
-        <p className="text-lg">Cargando contenido...</p>
-      </div>
+      <>
+        <Navbar />
+        <div className='absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center shimmer -z-10'></div>
+      </>
     );
   }
 

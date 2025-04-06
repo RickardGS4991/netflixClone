@@ -13,8 +13,8 @@ export const LoginService = async (data: UserModel) => {
             }
         });
 
-        if(response.status === 200){
-            return response.data
+        if(response.status === 201){
+            return response.data.data;
         }
         return null;
     } catch (error: any) {

@@ -2,6 +2,7 @@ import { LogOut, Menu, Search } from 'lucide-react';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useContentStore } from '../store/content';
+import { setAuth } from '../store/authContent';
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,6 +10,7 @@ function Navbar() {
     const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
     const {contentType, setContentType} = useContentStore();
+    const {username, image_path} = setAuth();
   return (
     <header className='max-w-6xl mx-auto flex flex-wrap items-center justify-between p-4 h-20'>
         <div className='flex items-center gap-10 z-50'>
@@ -17,10 +19,10 @@ function Navbar() {
             </Link>
 
             <div className='hidden sm:flex gap-2 items-center'>
-                <Link to={"/"} className='hover:underline' onClick={() => setContentType("movies")}>
+                <Link to={"/home"} className='hover:underline' onClick={() => setContentType("movies")}>
                     Movies
                 </Link>
-                <Link to={"/"} className='hover:underline' onClick={() => setContentType("tv")}>
+                <Link to={"/home"} className='hover:underline' onClick={() => setContentType("tv")}>
                     TV Shows
                 </Link>
                 <Link to={"/history"} className='hover:underline'>
@@ -34,7 +36,7 @@ function Navbar() {
                 <Search className='size-6 cursor-pointer' />
             </Link>
             {/* {"La imagen del usuario debe cambiar dependiendo del usuario"} */}
-            <img src={"/avatar1.png"} alt="avatar" className='h-8 rounded cursor-pointer'/>
+            <img src={image_path || 'avatar1.png'} alt="avatar" className='h-8 rounded cursor-pointer'/>
             {/* {"Debo agregar aquí el boton logout"} */}
             <LogOut className='size-6 cursor-pointer' />
 

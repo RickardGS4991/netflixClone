@@ -1,6 +1,6 @@
 import React from 'react'
 import HomeScreen from './HomeScreen';
-import AuthScreen from './AuthScreen';
+import AuthScreen from '../view/AuthScreen';
 
 function HomePage() {
   let user:boolean = false;

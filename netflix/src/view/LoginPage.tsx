@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { LoginService } from '../services/login';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { setItems } from '../core/utils/localStorage';
 import { Tokens } from '../model/tokens';
 import { toast } from 'sonner';
 import { setAuth } from '../core/store/authContent';
 import { useNavigate } from 'react-router-dom';
+import { useAuthViewModel } from '../core/hooks/useAuthViewModel.hook';
 
 function LoginPage() {
+  let authViewModel = useAuthViewModel();
   const {changeAuth} = setAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,13 +23,12 @@ function LoginPage() {
     }
 
     try {
-      let result = await LoginService({email: email, password: password});
-      console.log(result);
+      let result = await authViewModel.login(email, password);
       if(!result){
         throw new Error(`Invalid credentials`);
       }
-      let tokens: Tokens = { access: result.accessToken, refresh: result.refreshToken }
-      changeAuth({ username: result.username, image_path: result.imagePath });
+      let tokens: Tokens = { access: result.accessToken!, refresh: result.refreshToken! }
+      changeAuth({ username: result.username, image_path: result.image_path });
       setItems(tokens);
       toast.success(`Bienvenido, ${result.username}`);
       navigate('/home');

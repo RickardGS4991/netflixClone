@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'
-import { registerService } from '../services/register';
+import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
+import { useAuthViewModel } from '../core/hooks/useAuthViewModel.hook';
 
 function SignUpPage() {
+  let authHook = useAuthViewModel();
   const [email, setEmail] = useState("");
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -23,7 +24,7 @@ function SignUpPage() {
     }
 
     try {
-      await registerService(request);
+      await authHook.register(request);
       toast.success('Usuario registrado')
     } catch (error) {
       toast.error('Algo sucedio mal...');

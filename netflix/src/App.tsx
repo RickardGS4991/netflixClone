@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import HomePage from './viewModel/HomePage'
-import SignUpPage from './viewModel/SignUpPage'
-import LoginPage from './viewModel/LoginPage'
-import AuthScreen from './viewModel/AuthScreen'
+import HomePage from './view/HomePage'
+import SignUpPage from './view/SignUpPage'
+import LoginPage from './view/LoginPage'
+import AuthScreen from './view/AuthScreen'
 import Footer from './core/components/Footer'
-import HomeScreen from './viewModel/HomeScreen'
-import WatchPage from './viewModel/WatchPage'
+import HomeScreen from './view/HomeScreen'
+import WatchPage from './view/WatchPage'
 
 function App() {
 
